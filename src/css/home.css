@@ -1,0 +1,9 @@
+.home .logo {
+  max-width: 400px;
+  text-align: center;
+  width: 50%;
+}
+
+.logo img {
+  max-width: 100%;
+}

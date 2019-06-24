@@ -1,0 +1,13 @@
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 3px;
+
+  background: #5A5ADB;
+  border-radius: 5px;
+  color: #fff;
+}
+
+.stats div:nth-child(even) {
+  text-align: right;
+}
