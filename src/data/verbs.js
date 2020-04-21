@@ -1,0 +1,88 @@
+const Verbs = [
+  {
+    id: '1',
+    matchNumber: '1',
+    english: 'to have',
+    isClicked: false,
+    isMatched: false,
+  },
+  {
+    id: '2',
+    matchNumber: '1',
+    foreign: 'haben',
+    isClicked: false,
+    isMatched: false,
+  },
+  {
+    id: '3',
+    matchNumber: '2',
+    english: 'to be',
+    isClicked: false,
+    isMatched: false,
+  },
+  {
+    id: '4',
+    matchNumber: '2',
+    foreign: 'sein',
+    isClicked: false,
+    isMatched: false,
+  },
+  {
+    id: '5',
+    matchNumber: '3',
+    english: 'to become',
+    isClicked: false,
+    isMatched: false,
+  },
+  {
+    id: '6',
+    matchNumber: '3',
+    foreign: 'werden',
+    isClicked: false,
+    isMatched: false,
+  },
+  {
+    id: '7',
+    matchNumber: '4',
+    english: 'can',
+    isClicked: false,
+    isMatched: false,
+  },
+  {
+    id: '8',
+    matchNumber: '4',
+    foreign: 'können',
+    isClicked: false,
+    isMatched: false,
+  },
+  {
+    id: '9',
+    matchNumber: '5',
+    english: 'must',
+    isClicked: false,
+    isMatched: false,
+  },
+  {
+    id: '10',
+    matchNumber: '5',
+    foreign: 'müssen',
+    isClicked: false,
+    isMatched: false,
+  },
+  {
+    id: '11',
+    matchNumber: '6',
+    english: 'to eat',
+    isClicked: false,
+    isMatched: false,
+  },
+  {
+    id: '12',
+    matchNumber: '6',
+    foreign: 'essen',
+    isClicked: false,
+    isMatched: false,
+  },
+];
+
+export default Verbs;
