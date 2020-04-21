@@ -195,7 +195,7 @@ class App extends Component {
     if (pos === undefined) {
       this.setState({ partOfSpeech: '' });
     } else {
-      fetch(`http://phoenixjaymes.com/lab/flashcards/assets/inc/fc-r-get-wordmatch-words.php?pos=${pos}`)
+      fetch(`https://phoenixjaymes.com/lab/flashcards/assets/inc/fc-r-get-wordmatch-words.php?pos=${pos}`)
         .then(reponse => reponse.json())
         .then(responseData => reset(responseData))
         .catch(error => (
