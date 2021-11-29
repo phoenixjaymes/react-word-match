@@ -16,8 +16,6 @@ const Answers = ({ correctList }) => {
           {`${word.english}:`}
         </strong>
         {` ${word.foreign}`}
-        <br />
-        {word.example}
       </p>
     </Col>
   ));

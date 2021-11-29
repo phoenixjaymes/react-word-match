@@ -7,20 +7,14 @@ import '../../css/words.css';
 
 const WordsContainer = ({ words, wordClick }) => {
   const newWords = words.map((wordObject) => {
-    let itemWord;
-
-    if (wordObject.english) {
-      itemWord = wordObject.english;
-    } else {
-      itemWord = wordObject.foreign;
-    }
+    const id = String(wordObject.id);
 
     return (
       <WordItem
-        key={wordObject.id}
-        id={wordObject.id}
-        match={wordObject.matchNumber}
-        word={itemWord}
+        key={id}
+        id={id}
+        match={wordObject.matchId}
+        word={wordObject.word}
         clicked={wordObject.isClicked}
         matched={wordObject.isMatched}
       />

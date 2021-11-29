@@ -7,26 +7,29 @@ import Home from './Home';
 import '../app.css';
 
 class App extends Component {
-  state = {
-    partOfSpeech: '',
-    words: [],
-    wordOneId: undefined,
-    wordOneMatchNum: undefined,
-    matchesLeft: 0,
-    isMatchCorrect: undefined,
-    isTimerStarted: false,
-    clickMessage: '',
-    cName: '',
-    finalMessage: '',
-    isModalShown: false,
-    startTime: 30000,
-    tries: 0,
-    timeLeft: 0,
-    correctList: [],
+  constructor(props) {
+    super(props);
+    this.state = {
+      partOfSpeech: '',
+      words: [],
+      wordOneId: undefined,
+      wordOneMatchNum: undefined,
+      matchesLeft: 0,
+      isMatchCorrect: undefined,
+      isTimerStarted: false,
+      clickMessage: '',
+      cName: '',
+      finalMessage: '',
+      isModalShown: false,
+      startTime: 30000,
+      tries: 0,
+      timeLeft: 0,
+      correctList: [],
+    };
   }
 
   componentDidMount() {
-    this.setState(prevState => ({ timeLeft: prevState.startTime }));
+    this.setState((prevState) => ({ timeLeft: prevState.startTime }));
   }
 
   componentWillUnmount() {
@@ -39,7 +42,7 @@ class App extends Component {
       wordOneId: wordOneIdVal,
       wordOneMatchNum: wordOneMatchVal,
       words: words.map((word) => {
-        if (indexToToggle === word.id) {
+        if (indexToToggle === String(word.id)) {
           return {
             ...word,
             isClicked: !word.isClicked,
@@ -52,19 +55,20 @@ class App extends Component {
 
   checkForMatch = (matchNum) => {
     const { words, wordOneMatchNum, correctList } = this.state;
+
     if (matchNum === wordOneMatchNum) {
       // function to come
-      const matchedWord = words.filter(word => word.matchNumber === matchNum);
-      const englishWord = matchedWord[0].english ? matchedWord[0].english : matchedWord[1].english;
+      const matchedWord = words.filter((word) => word.matchId === matchNum);
+      let englishWord = '';
       let foreignWord = '';
-      let example = '';
+      const example = 'no example';
 
-      if (matchedWord[0].foreign) {
-        foreignWord = matchedWord[0].foreign;
-        example = matchedWord[0].example;
+      if (matchedWord[0].id % 2 !== 0) {
+        englishWord = matchedWord[0].word;
+        foreignWord = matchedWord[1].word;
       } else {
-        foreignWord = matchedWord[1].foreign;
-        example = matchedWord[1].example;
+        englishWord = matchedWord[1].word;
+        foreignWord = matchedWord[0].word;
       }
 
       const tmpArray = correctList;
@@ -73,7 +77,7 @@ class App extends Component {
       this.setState({ correctList: tmpArray });
 
       // end function to come
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         matchesLeft: prevState.matchesLeft - 1,
         isMatchCorrect: true,
         clickMessage: 'MATCHED!',
@@ -81,7 +85,7 @@ class App extends Component {
         wordOneId: undefined,
         wordOneMatchNum: undefined,
         words: words.map((word) => {
-          if (matchNum === word.matchNumber) {
+          if (matchNum === word.matchId) {
             return {
               ...word,
               isClicked: false,
@@ -92,7 +96,7 @@ class App extends Component {
         }),
       }));
     } else {
-      this.setState(prevState => ({
+      this.setState((prevState) => ({
         isMatchCorrect: false,
         clickMessage: 'NO MATCH!',
         cName: 'message-incorrect',
@@ -121,7 +125,7 @@ class App extends Component {
     } = this.state;
     const indexClicked = e.target.getAttribute('data-id');
     const matchNum = e.target.getAttribute('data-match-num');
-    const objWord = words.filter(word => indexClicked === word.id);
+    const objWord = words.filter((word) => indexClicked === String(word.id));
 
     if (isTimerStarted === false) {
       this.timerID = setInterval(
@@ -195,10 +199,10 @@ class App extends Component {
     if (pos === undefined) {
       this.setState({ partOfSpeech: '' });
     } else {
-      fetch(`https://phoenixjaymes.com/lab/flashcards/assets/inc/fc-r-get-wordmatch-words.php?pos=${pos}`)
-        .then(reponse => reponse.json())
-        .then(responseData => reset(responseData))
-        .catch(error => (
+      fetch(`https://deutscherphoenix.com/api/words?pos=${pos}`)
+        .then((reponse) => reponse.json())
+        .then((responseData) => reset(responseData.data))
+        .catch((error) => (
           console.log('Error fetching and parsing data', error)
         ));
     }
@@ -208,7 +212,7 @@ class App extends Component {
     clearInterval(this.timerID);
     const { startTime } = this.state;
 
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       tries: 0,
       matchesLeft: prevState.words.length / 2,
       partOfSpeech: prevState.pos,
@@ -221,7 +225,7 @@ class App extends Component {
       cName: '',
       isModalShown: false,
       correctList: [],
-      words: prevState.words.map(word => ({
+      words: prevState.words.map((word) => ({
         ...word,
         isClicked: false,
         isMatched: false,
@@ -230,7 +234,7 @@ class App extends Component {
   }
 
   tick = () => {
-    this.setState(prevState => ({
+    this.setState((prevState) => ({
       timeLeft: prevState.timeLeft - 1000,
     }));
 
@@ -266,7 +270,6 @@ class App extends Component {
         <Header partOfSpeechClick={this.partOfSpeechClick} />
         <Main
           checkTimeLeft={this.checkTimeLeft}
-
           isMatchCorrect={isMatchCorrect}
           matchesLeft={matchesLeft}
           clickMessage={clickMessage}
@@ -280,7 +283,6 @@ class App extends Component {
           partOfSpeechClick={this.partOfSpeechClick}
           removeMessage={this.removeMessage}
           removeTimeout={this.removeTimeout}
-
           timeLeft={timeLeft}
           tries={tries}
           tryAgainClick={this.tryAgainClick}
